@@ -33,6 +33,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $hiden = [
+        "created_at", "updated_at"
+    ];
     /**
      * Get the attributes that should be cast.
      *
