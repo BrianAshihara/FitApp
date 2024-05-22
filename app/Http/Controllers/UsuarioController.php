@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsuarioFormRequest;
-use App\Models\Autor;
+use App\Models\Usuario;
 use App\Services\UsuarioServiceInterface;
 use Illuminate\Http\Request;
 
@@ -19,16 +19,19 @@ class UsuarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //dd('acessando o controller autor controller - index');
-
+        $pesquisar = $request->pesquisar ?? "";
+        $perPage = $request->perPage ?? 5;
         //essa variavel service eu criei no construtor e atribui o valor do model
-        $registros =  $this->service->index();
+        $registros =  $this->service->index($pesquisar, $perPage);
         //$registros = Autor::index(10);
 
         return view('usuario.index', [
-            'registros'=> $registros['registros'],
+            'registros' => $registros,
+            'pesquisar' => $pesquisar,
+            'perPage' => $perPage,
         ]);
     }
 
@@ -44,10 +47,18 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AutorFormRequest $request)
+    public function store(AutorFormRequest $request, $id)
     {
-        $this->service->store($request);
-        return redirect()->route('usuario.index');
+        $registro = $request->all();
+        try{
+            $registro = $this->service->show($request,$id);
+        return redirect()->route('usuario.index')->whit('success', 'Registro criado com sucesso');
+        }catch (Exception $e){
+            return view('usuario.create', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
         
     }
 
@@ -57,11 +68,20 @@ class UsuarioController extends Controller
     public function show(string $id)
     {
 
-        $registro = $this->service->show($id);
+        try{
+            $registro = $this->service->show($id);
+            return view('usuario.show', [
+                'registro' => $registro['registro'],
+            ]);
+        }catch(Execption $e){
+            return view('usuario.show', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
+        
 
-        return view('usuario.show', [
-            'registro' => $registro['registro'],
-        ]);
+
     }
 
     /**
@@ -69,13 +89,20 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
+
         //complete a função de editar
-        $registro = $this->service->show($id);
-
-        return view('usuario.edit', [
-            'registro'=> $registro['registro'],
-        ]);
-
+        try{
+            $registro = $this->service->show($id);
+            return view('usuario.edit', [
+                'registro' => $registro['registro'],
+            ]);
+        }catch(Exception $e){
+            return view('usuario.edit', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
+        
 
     }
 
@@ -87,18 +114,35 @@ class UsuarioController extends Controller
         //
 
         //dd('Testeeeeee');
-        $this->service->update($request, $id);
-
-        return redirect()->route('usuario.index');
+        $registro = $request->all();
+        try{
+            $registro = $this->service->show($request,$id);
+            return redirect()->route('usuario.index')->whit('success', 'Registro atualizado com sucesso');
+        }catch(Exception $e){
+            return view('usuario.edit', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
 
     }
 
     public function delete($id) {
-        $registro = $this->service->show($id);
+
+        try{
+            $registro = $this->service->show($id);
+            return view('usuario.destroy', [
+                'registro' => $registro,
+            ]);
+        }catch(Exception $e){
+            return view('usuario.index', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
         
-        return view('usuario.destroy', [
-            'registro'=> $registro['registro'],
-        ]);
+        
+    
     }
 
     /**
@@ -107,8 +151,15 @@ class UsuarioController extends Controller
     public function destroy(string $id)
     {
 
-        $this->service->destroy($id);
         
+        try{
+            $this->service->destroy($id);
+            return redirect()->route('usuario.index')->whit('success', 'Registro excluído com sucesso');
+        }catch(Exception $e){
+            return view('usuario.destroy', [
+                'fail' => $e->getMessage(),
+            ]);
+        }
         return redirect()->route('usuario.index');
         
     }

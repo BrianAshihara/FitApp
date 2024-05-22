@@ -27,6 +27,7 @@ class Usuario extends Model
     protected $hiden = [
         "created_at", "updated_at"
     ];
+    
     public function feedback() {
         return [
             "nome"=> "O campo :attribute é obrigatório!",
