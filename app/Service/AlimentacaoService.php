@@ -4,17 +4,17 @@ namespace App\Services;
 
 use Exception;
 
-use App\Models\Usuario;
-use App\Services\UserServiceInterface;
+use App\Models\Alimentacao;
+use App\Services\AlimentacaoServiceInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 
-class UserService implements UserServiceInterface {
+class AlimentacaoService implements AlimentacaoServiceInterface {
 
     private $repository;
-    public function __construct(Usuario $usuario)
+    public function __construct(Alimentacao $alimentacao)
     {
         $this->repository = $usuario;
     }
@@ -22,8 +22,7 @@ class UserService implements UserServiceInterface {
     public function index($pesquisar, $perPage) {
         $registro = $this->repository->where(function($query) use($pesquisar){
             if($pesquisar){
-                $query->where("nome","like","%".$pesquisar."%");
-                $query->orwhere("email","like","%".$pesquisar."%");
+                $query->where("tipo_refeicao","like","%".$pesquisar."%");
             }
         })->paginate($perPage);
         return $registro;
@@ -64,11 +63,11 @@ class UserService implements UserServiceInterface {
 
     public function update(Request $request, string $id) {
 
-        $usuarioCadastrado = $this->repository->find($id);
+        $alimentacaoCadastrado = $this->repository->find($id);
 
         DB::beginTransaction();
         try{
-            $registro = $usuarioCadastrado->update($request);
+            $registro = $alimentacaoCadastrado->update($request);
             DB::comit();
             return $registro;
         }catch(Exception $e){
@@ -82,11 +81,11 @@ class UserService implements UserServiceInterface {
     public function delete($id) {}
     
     public function destroy(string $id) {
-        $usuarioCadastrado = $this->show($id);
+        $alimentacaoCadastrado = $this->show($id);
 
         DB::beginTransaction();
         try{
-            $registro = $usuarioCadastrado->delete;
+            $registro = $alimentacaoCadastrado->delete;
             DB::comit();
             return $registro;
         }catch(Exception $e){
