@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BFFormRequest;
-use App\Models\Autor;
+use App\Models\BF;
 use App\Services\BFServiceInterface;
 use Illuminate\Http\Request;
 

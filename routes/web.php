@@ -17,25 +17,74 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/dashboard', [Dashboard::class,'dashboard'])->name('dashboard');
 
 //Chamando rota para usar o controller.
 //Listar geral
 
 Route::prefix('usuario')->group(function () {
-
     Route::any('/index',[UsuarioController::class,'index'])->name('usuario.index');
     Route::get('/create',[UsuarioController::class,'create'])->name('usuario.create');
     Route::get('/edit/{id}',[UsuarioController::class,'edit'])->name('usuario.edit');
     Route::get('/destroy/{id}',[UsuarioController::class,'destroy'])->name('usuario.destroy');
     Route::get('/show/{id}',[UsuarioController::class,'show'])->name('usuario.show');
     Route::get('/delete/{id}',[UsuarioController::class,'delete'])->name('usuario.delete');
+});
 
-    
-    Route::post('/store',[AutorController::class,'store'])->name('autor.store');
-    Route::delete('/destroy/{id}',[AutorController::class,'destroy'])->name('autor.destroy');
-    
+Route::prefix('alimentacao')->group(function () {
+    Route::any('/index',[AlimentacaoController::class,'index'])->name('alimentacao.index');
+    Route::get('/create',[AlimentacaoController::class,'create'])->name('alimentacao.create');
+    Route::get('/edit/{id}',[AlimentacaoController::class,'edit'])->name('alimentacao.edit');
+    Route::get('/destroy/{id}',[AlimentacaoController::class,'destroy'])->name('alimentacao.destroy');
+    Route::get('/show/{id}',[AlimentacaoController::class,'show'])->name('alimentacao.show');
+    Route::get('/delete/{id}',[AlimentacaoController::class,'delete'])->name('alimentacao.delete');
+});
 
+Route::prefix('avaliacao')->group(function () {
+    Route::any('/index',[AvaliacaoController::class,'index'])->name('avaliacao.index');
+    Route::get('/create',[AvaliacaoController::class,'create'])->name('avaliacao.create');
+    Route::get('/edit/{id}',[AvaliacaoController::class,'edit'])->name('avaliacao.edit');
+    Route::get('/destroy/{id}',[AvaliacaoController::class,'destroy'])->name('avaliacao.destroy');
+    Route::get('/show/{id}',[AvaliacaoController::class,'show'])->name('avaliacao.show');
+    Route::get('/delete/{id}',[AvaliacaoController::class,'delete'])->name('avaliacao.delete');
+});
 
-    Route::put('/update/{id}',[AutorController::class,'update'])->name('autor.update');
+Route::prefix('bf')->group(function () {
+    Route::any('/index',[BfController::class,'index'])->name('bf.index');
+    Route::get('/create',[BfController::class,'create'])->name('bf.create');
+    Route::get('/edit/{id}',[BfController::class,'edit'])->name('bf.edit');
+    Route::get('/destroy/{id}',[BfController::class,'destroy'])->name('bf.destroy');
+    Route::get('/show/{id}',[BfController::class,'show'])->name('bf.show');
+    Route::get('/delete/{id}',[BfController::class,'delete'])->name('bf.delete');
+});
+
+Route::prefix('historicopeso')->group(function () {
+    Route::any('/index',[HistoricopesoController::class,'index'])->name('historicopeso.index');
+    Route::get('/create',[HistoricopesoController::class,'create'])->name('historicopeso.create');
+    Route::get('/edit/{id}',[HistoricopesoController::class,'edit'])->name('historicopeso.edit');
+    Route::get('/destroy/{id}',[HistoricopesoController::class,'destroy'])->name('historicopeso.destroy');
+    Route::get('/show/{id}',[HistoricopesoController::class,'show'])->name('historicopeso.show');
+    Route::get('/delete/{id}',[HistoricopesoController::class,'delete'])->name('historicopeso.delete');
+});
+
+Route::prefix('metas')->group(function () {
+    Route::any('/index',[MetasController::class,'index'])->name('metas.index');
+    Route::get('/create',[MetasController::class,'create'])->name('metas.create');
+    Route::get('/edit/{id}',[MetasController::class,'edit'])->name('metas.edit');
+    Route::get('/destroy/{id}',[MetasController::class,'destroy'])->name('metas.destroy');
+    Route::get('/show/{id}',[MetasController::class,'show'])->name('metas.show');
+    Route::get('/delete/{id}',[MetasController::class,'delete'])->name('metas.delete');
+});
+
+Route::prefix('registrosono')->group(function () {
+    Route::any('/index',[RegistrosonoController::class,'index'])->name('registrosono.index');
+    Route::get('/create',[RegistrosonoController::class,'create'])->name('registrosono.create');
+    Route::get('/edit/{id}',[RegistrosonoController::class,'edit'])->name('registrosono.edit');
+    Route::get('/destroy/{id}',[RegistrosonoController::class,'destroy'])->name('registrosono.destroy');
+    Route::get('/show/{id}',[RegistrosonoController::class,'show'])->name('registrosono.show');
+    Route::get('/delete/{id}',[RegistrosonoController::class,'delete'])->name('registrosono.delete');
 });

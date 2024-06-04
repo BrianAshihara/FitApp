@@ -5,13 +5,13 @@ namespace App\Services;
 use Exception;
 
 use App\Models\Usuario;
-use App\Services\UserServiceInterface;
+use App\Services\UsuarioServiceInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 
-class UserService implements UserServiceInterface {
+class UsuarioService implements UsuarioServiceInterface {
 
     private $repository;
     public function __construct(Usuario $usuario)

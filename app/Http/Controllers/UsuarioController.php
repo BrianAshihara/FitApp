@@ -11,7 +11,7 @@ class UsuarioController extends Controller
 {
     // faça a injeção de dependência do context
     private $service;
-    public function __construct(UserServiceInterface $service)
+    public function __construct(UsuarioServiceInterface $service)
     {
         $this->service = $service;
     }
@@ -47,7 +47,7 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AutorFormRequest $request, $id)
+    public function store(UsuarioFormRequest $request, $id)
     {
         $registro = $request->all();
         try{
@@ -109,7 +109,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AutorFormRequest $request, string $id)
+    public function update(UsuarioFormRequest $request, string $id)
     {
         //
 

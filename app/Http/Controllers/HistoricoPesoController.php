@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Http\Requests\HistoricoPesoFormRequest;
-use App\Models\Autor;
+use App\Models\HistoricoPeso;
 use App\Services\HistoricoPesoServiceInterface;
 use Illuminate\Http\Request;
 

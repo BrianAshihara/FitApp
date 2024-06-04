@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Http\Requests\AvaliacaoFormRequest;
-use App\Models\Autor;
+use App\Models\Avaliacao;
 use App\Services\AvaliacaoServiceInterface;
 use Illuminate\Http\Request;
 

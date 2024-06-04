@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistroSonoFormRequest;
-use App\Models\Autor;
+use App\Models\RegistroSono;
 use App\Services\RegistroSonoServiceInterface;
 use Illuminate\Http\Request;
 
@@ -44,7 +44,7 @@ class RegistroSonoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AutorFormRequest $request)
+    public function store(RegistroSonoFormRequest $request)
     {
         $this->service->store($request);
         return redirect()->route('registrosono.index');

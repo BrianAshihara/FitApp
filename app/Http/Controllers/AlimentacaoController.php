@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Http\Requests\AlimentacaoFormRequest;
-use App\Models\Autor;
+use App\Models\Alimentacao;
 use App\Services\AlimentacaoServiceInterface;
 use Illuminate\Http\Request;
 
