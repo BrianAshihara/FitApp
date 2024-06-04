@@ -9,16 +9,18 @@ use Illuminate\Http\Request;
 class BFService implements BFServiceInterface {
 
     private $repository;
-    public function __construct(Autor $autor)
+    public function __construct(BF $bf)
     {
-        $this->repository = $autor;
+        $this->repository = $usuario;
     }
 
-    public function index() {
-        $registros = $this->repository->paginate(10);
-        return (
-            ["registros" => $registros]
-        );
+    public function index($pesquisar, $perPage) {
+        $registro = $this->repository->where(function($query) use($pesquisar){
+            if($pesquisar){
+                $query->where("bf","like","%".$pesquisar."%");
+            }
+        })->paginate($perPage);
+        return $registro;
     }
     
 
@@ -28,15 +30,25 @@ class BFService implements BFServiceInterface {
 
     public function store(Request $request) {
 
-        $this->repository->create($request->all());
+        DB::beginTransaction();
+        try{
+            $registro = $this->repository->create($request);
+            DB::comit();
+            return $registro;
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro ao criar o registro');
+        }
     }
 
     public function show(string $id) {
+        try{
         $registro = $this->repository->find($id);
-
-        return (
-            ["registro" => $registro]
-        );
+        return $registro;
+        }catch(ModelNotFoundException $e){
+            throw new Exception('Registro não localizado');
+        }
+        
     }
 
     public function edit(string $id) {
@@ -45,23 +57,34 @@ class BFService implements BFServiceInterface {
 
     public function update(Request $request, string $id) {
 
-        // $request->validate([
-        //     $registro = $request->all()
-        // ]);
+        $BFCadatrado = $this->repository->find($id);
 
-        $registro = $request->all();   
+        DB::beginTransaction();
+        try{
+            $registro = $BFCadatrado->update($request);
+            DB::comit();
+            return $registro;
 
-        $autor = $this->repository->find($id);
-
-        $autor -> update($registro);
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro ao atualizar o registro');
+        }
     }
 
     public function delete($id) {}
     
     public function destroy(string $id) {
-        $registro = $this->repository->find($id);
+        $BFCadatrado = $this->show($id);
 
-        $registro->delete();
+        DB::beginTransaction();
+        try{
+            $registro = $BFCadatrado->delete();
+            DB::comit();
+            return $registro;
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro ao deletar o registro');
+        }
     }
 
 }
