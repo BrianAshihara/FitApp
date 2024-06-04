@@ -19,16 +19,17 @@ class BFController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //dd('acessando o controller autor controller - index');
+        $pesquisar = $request->pesquisar ?? "";
+        $perPage = $request->perPage ?? 5;
 
-        //essa variavel service eu criei no construtor e atribui o valor do model
-        $registros =  $this->service->index();
-        //$registros = Autor::index(10);
+        $registros =  $this->service->index($pesquisar, $perPage);
 
         return view('bf.index', [
-            'registros'=> $registros['registros'],
+            'registros'=> $registros,
+            'perPage'=>$perPage,
+            'filter'=>$pesquisar,
         ]);
     }
 
@@ -44,10 +45,18 @@ class BFController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AutorFormRequest $request)
+    public function store(BFFormRequest $request)
     {
-        $this->service->store($request);
-        return redirect()->route('bf.index');
+        $registro = $request->all();
+        try{
+            $registro = $this->service->show($request, $id);
+            return redirect()->route('bf.index')->whit('success', 'Registro cadastrado com sucesso!');
+        }catch (Exception $e){
+            return view('bf.create', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
         
     }
 
@@ -56,25 +65,36 @@ class BFController extends Controller
      */
     public function show(string $id)
     {
-
+        try{
         $registro = $this->service->show($id);
-
         return view('bf.show', [
-            'registro' => $registro['registro'],
+            'registro'=> $registro['registro'],
         ]);
+        }catch(Exception $e){
+            return view('bf.show', [
+                'registro'=> $registro,
+                'fail'=> $e->getMessage(),
+            ]);
+        }
     }
+    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //complete a função de editar
-        $registro = $this->service->show($id);
-
-        return view('bf.edit', [
-            'registro'=> $registro['registro'],
-        ]);
+        try{
+            $registro = $this->service->show($id);
+            return view('bf.edit', [
+                'registro'=> $registro['registro'],
+            ]);
+        }catch(Exception $e){
+            return view('bf.edit', [
+                'registro'=> $registro,
+                'fail'=> $e->getMessage(),
+            ]);
+        }
 
 
     }
@@ -82,23 +102,33 @@ class BFController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AutorFormRequest $request, string $id)
+    public function update(BFFormRequest $request, string $id)
     {
-        //
-
-        //dd('Testeeeeee');
-        $this->service->update($request, $id);
-
-        return redirect()->route('bf.index');
+        $registro = $request->all();
+        try{
+            $this->$this->service->show($registro, $id);
+            return redirect()->route('bf.index')->whit('success', 'Registro alterado com sucesso!');
+        }catch (Exception $e){
+            return view('bf.edit', [
+                'registro' => $registro,
+                'fail' => $e->getMessage(),
+            ]);
+        }
 
     }
 
     public function delete($id) {
-        $registro = $this->service->show($id);
-        
-        return view('bf.destroy', [
-            'registro'=> $registro['registro'],
-        ]);
+        try{
+            $registro = $this->service->show($id);
+            return view('bf.destroy', [
+                'registro'=> $registro,
+            ]);
+        }catch(Exception $e){
+            return view('bf.destroy', [
+                'registro'=> $registro,
+                'fail'=> $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -106,9 +136,14 @@ class BFController extends Controller
      */
     public function destroy(string $id)
     {
-
-        $this->service->destroy($id);
-        
+        try{
+            $this->service->destroy($id);
+            return redirect()->route('bf.index')->whit('success', 'Registro excluído com sucesso!');
+        }catch(Exception $e){
+            return view('bf.destroy', [
+                'fail'=> $e->getMessage(),
+            ]);
+        }
         return redirect()->route('bf.index');
         
     }

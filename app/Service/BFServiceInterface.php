@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 
 interface BFServiceInterface extends BFServiceInterface {
-    public function index($pesquisar, $perPage);
+    public function index($pesquisar, $perPagegi);
 
     public function create();
 
