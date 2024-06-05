@@ -16,7 +16,7 @@ class HistoricoPesoService implements HistoricoPesoServiceInterface {
     private $repository;
     public function __construct(HistoricoPeso $historicoPeso)
     {
-        $this->repository = $usuario;
+        $this->repository = $historicoPeso;
     }
 
     public function index($pesquisar, $perPage) {
