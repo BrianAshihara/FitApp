@@ -17,7 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', [Dashboard::class,'dashboard'])->name('dashboard');
+Route::get('/', function (){
+    return view('dashboard');
+});
+
+Route::get('/teste', function (){
+    return view('Vsf_Brian');
+});
 
 //Chamando rota para usar o controller.
 //Listar geral
