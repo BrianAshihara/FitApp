@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BFServiceInterface::class, BFService::class);
         $this->app->bind(AlimentacaoServiceInterface::class, AlimentacaoService::class);
         $this->app->bind(AvaliacaoServiceInterface::class, AvaliacaoService::class);
+        $this->app->bind(ExercicioServiceInterface::class, ExercicioService::class);
+        $this->app->bind(MetasServiceInterface::class, MetasService::class);
+        $this->app->bind(HistoricoPesoServiceInterface::class, HistoricoService::class);
     }
 
     /**

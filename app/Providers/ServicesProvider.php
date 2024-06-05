@@ -15,8 +15,9 @@ class ServicesProvider extends ServiceProvider
         BFServiceInterface::class => BFService::class,
         AlimentacaoServiceInterface::class => AlimentacaoService::class,
         AvaliacaoServiceInterface::class => AvaliacaoService::class,
-
-
+        ExercicioServiceInterface::class => ExercicioService::class,
+        MetasServiceInterface::class => MetasService::class,
+        HistoricoPesoServiceInterface::class => HistoricoService::class,
     ];
     /**
      * Register services.

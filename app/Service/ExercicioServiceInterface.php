@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\BF;
+use App\Models\Exercicio;
 use Illuminate\Http\Request;
 
 
-interface BFServiceInterface extends BFServiceInterface {
+interface ExercicioServiceInterface extends ExercicioServiceInterface {
     public function index($pesquisar, $perPage);
 
     public function create();
