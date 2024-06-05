@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Http\Requests\MetasFormRequest;
-use App\Models\Autor;
+use App\Models\Metas;
 use App\Services\MetasServiceInterface;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class MetasController extends Controller
 {
     // faça a injeção de dependência do context
     private $service;
-    public function __construct(AutorServiceInterface $service)
+    public function __construct(MetasServiceInterface $service)
     {
         $this->service = $service;
     }

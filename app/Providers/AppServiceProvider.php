@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(TreinoServiceInterface::class, TreinoService::class);
         $this->app->bind(UsuarioServiceInterface::class, UsuarioService::class);
         $this->app->bind(RegistroSonoServiceInterface::class, RegistroSonoService::class);
         $this->app->bind(BFServiceInterface::class, BFService::class);
