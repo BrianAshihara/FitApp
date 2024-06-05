@@ -2,23 +2,30 @@
 
 namespace App\Services;
 
+use Exception;
+
 use App\Models\RegistroSono;
 use App\Services\RegistroSonoServiceInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
 
 class RegistroSonoService implements RegistroSonoServiceInterface {
 
     private $repository;
-    public function __construct(Autor $autor)
+    public function __construct(RegistroSono $registroSono)
     {
-        $this->repository = $autor;
+        $this->repository = $registroSono;
     }
 
-    public function index() {
-        $registros = $this->repository->paginate(10);
-        return (
-            ["registros" => $registros]
-        );
+    public function index($pesquisar, $perPage) {
+        $registro = $this->repository->where(function($query) use($pesquisar){
+            if($pesquisar){
+                $query->where("tempo_sono","like","%".$pesquisar."%");
+            }
+        })->paginate($perPage);
+        return $registro;
     }
     
 
@@ -28,15 +35,26 @@ class RegistroSonoService implements RegistroSonoServiceInterface {
 
     public function store(Request $request) {
 
+        DB::beginTransaction();
+        try{
+            $registro = $this->repository->create($request);
+            DB::comit();
+            return $registro;
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro ao criar o registro');
+        }
+
         $this->repository->create($request->all());
     }
 
     public function show(string $id) {
+       try{
         $registro = $this->repository->find($id);
-
-        return (
-            ["registro" => $registro]
-        );
+        return $registro;
+       }catch(ModelNotFoundException $e){
+        throw new Exception('Registro não localizado');
+       }
     }
 
     public function edit(string $id) {
@@ -45,23 +63,36 @@ class RegistroSonoService implements RegistroSonoServiceInterface {
 
     public function update(Request $request, string $id) {
 
-        // $request->validate([
-        //     $registro = $request->all()
-        // ]);
+        $registroSonoCadastrado = $this->repository->find($id);
 
-        $registro = $request->all();   
+        DB::beginTransaction();
+        try{
+            $registro = $registroSonoCadastrado->update($request);
+            DB::comit();
+            return $registro;
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro na alteração do registro');
+        }
 
-        $autor = $this->repository->find($id);
 
-        $autor -> update($registro);
     }
 
     public function delete($id) {}
     
     public function destroy(string $id) {
-        $registro = $this->repository->find($id);
+        $registroSonoCadastrado = $this->show($id);
 
-        $registro->delete();
+        DB::beginTransaction();
+        try{
+            $registro = $registroSonoCadastrado->delete;
+            DB::comit();
+            return $registro;
+        }catch(Exception $e){
+            DB::rollback();
+            return new Exception('Erro na exclusão do registro');
+        }
+
     }
 
 }

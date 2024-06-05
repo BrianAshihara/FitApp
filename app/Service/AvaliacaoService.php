@@ -16,7 +16,7 @@ class AvaliacaoService implements AvaliacaoServiceInterface {
     private $repository;
     public function __construct(Avaliacao $avaliacao)
     {
-        $this->repository = $usuario;
+        $this->repository = $avaliacao;
     }
 
     public function index($pesquisar, $perPage) {

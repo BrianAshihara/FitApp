@@ -16,7 +16,7 @@ class AlimentacaoService implements AlimentacaoServiceInterface {
     private $repository;
     public function __construct(Alimentacao $alimentacao)
     {
-        $this->repository = $usuario;
+        $this->repository = $alimentacao;
     }
 
     public function index($pesquisar, $perPage) {

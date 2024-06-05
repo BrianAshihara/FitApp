@@ -13,7 +13,8 @@ class ServicesProvider extends ServiceProvider
         UsarioServiceInterface::class => UsuarioService::class,
         RegistroSonoServiceInterface::class => RegistroSonoService::class,
         BFServiceInterface::class => BFService::class,
-
+        AlimentacaoServiceInterface::class => AlimentacaoService::class,
+        AvaliacaoServiceInterface::class => AvaliacaoService::class,
 
 
     ];

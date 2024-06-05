@@ -34,7 +34,7 @@ class UsuarioFormRequest extends FormRequest
         if ($this->method() == "PUT") {
             $rules['email'] = [
                 'required',
-                Rule::unique('autors')->ignore($this->id)
+                Rule::unique('usuarios')->ignore($this->id)
             ];
         }
 

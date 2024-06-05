@@ -13,7 +13,7 @@ class AvaliacaoController extends Controller
 {
     // faça a injeção de dependência do context
     private $service;
-    public function __construct(AutorServiceInterface $service)
+    public function __construct(AvaliacaoServiceInterface $service)
     {
         $this->service = $service;
     }
@@ -32,7 +32,7 @@ class AvaliacaoController extends Controller
         $registros =  $this->service->index($pesquisar, $perPage);
         //$registros = Autor::index(10);
 
-        return view('autor.index', [
+        return view('avaliacao.index', [
             'registros'=> $registros,
             'perPage'=>$perPage,
             'filter'=>$pesquisar,
