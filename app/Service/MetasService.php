@@ -16,7 +16,7 @@ class MetasService implements MetasServiceInterface {
     private $repository;
     public function __construct(Metas $metas)
     {
-        $this->repository = $usuario;
+        $this->repository = $metas;
     }
 
     public function index($pesquisar, $perPage) {
