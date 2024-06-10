@@ -1,6 +1,7 @@
 <?php
 
 //deve inserir a referencia aqui para conseguir usar o controller
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Dashboard;
@@ -24,6 +25,8 @@ Route::get('/usuario', function (){
 Route::get('/teste', function (){
     return view('Vsf_Brian');
 });
+
+Route::get('/home', [HomeController::class,'home']);
 
 //Chamando rota para usar o controller.
 //Listar geral
