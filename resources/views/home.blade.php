@@ -238,7 +238,7 @@
     <div class="container">
       <div class="heading_container">
         <h2>
-          Nosso Serviços
+          Nossos Serviços
         </h2>
       </div>
       <div class="service_container">
@@ -481,22 +481,20 @@
       <div class="row">
         <div class="col-md-6 px-0">
           <div class="img-box">
-            <img src="{{ url ('assets/images/result-img.jpg')}}" alt="">
+            <img src="{{ url ('assets/images/Renato_Cariri.jpg')}}" alt="">
           </div>
         </div>
         <div class="col-lg-4 col-md-5">
           <div class="detail-box">
             <h2>
-              BUILT TO BRING <br>
-              BEST RESULTS
+              Costrua <br>
+              os melhores resultados
             </h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+              "Maldito homem que acredita no homem"
             </p>
             <a href="">
-              Get A Quote
+              Adquira já!
             </a>
           </div>
         </div>
