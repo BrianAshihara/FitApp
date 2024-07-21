@@ -36,4 +36,9 @@ class Avaliacao extends Model
             
         ];
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_cliente_avaliou');
+    }
 }

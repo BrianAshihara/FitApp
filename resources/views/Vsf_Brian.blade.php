@@ -1,1 +1,6 @@
-<h1> Funcionou né? </h1>
+<livewire:usuario-component />
+
+
+
+@livewireStyles
+@livewireScripts

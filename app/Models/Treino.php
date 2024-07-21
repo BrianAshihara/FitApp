@@ -34,4 +34,9 @@ class Treino extends Model
             
         ];
     }
+
+    public function exercicios()
+    {
+        return $this->belongsToMany(Exercicio::class);
+    }
 }

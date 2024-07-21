@@ -1,28 +1,27 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
+class CreateUsuariosTable extends Migration
 {
     public function up()
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('senha');
-            $table->date('data_cadastro');
-            $table->string('info_perfil');
-            $table->rememberToken();
+            $table->datetime('data_cadastro')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->text('info_perfil')->nullable();
             $table->timestamps();
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('usuarios');
     }
-};
+}

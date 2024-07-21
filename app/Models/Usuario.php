@@ -9,6 +9,9 @@ class Usuario extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'data_cadastro' => 'datetime',
+    ];
 
     protected $fillable = [ 
         "nome", "email", "senha", "data_cadastro", "info_perfil"
@@ -37,4 +40,45 @@ class Usuario extends Model
             "info_perfil" => "O campo :attribute é obrigatório!"
         ];
     }
+
+    public function treinos()
+    {
+        return $this->hasMany(Treino::class);
+    }
+
+    public function bfs()
+    {
+        return $this->hasMany(BF::class);
+    }
+
+    public function avaliacoes()
+    {
+        return $this->hasMany(Avaliacao::class);
+    }
+
+    public function historicoPesos()
+    {
+        return $this->hasMany(HistoricoPeso::class);
+    }
+
+    public function registrosSono()
+    {
+        return $this->hasMany(RegistroSono::class);
+    }
+
+    public function metas()
+    {
+        return $this->hasMany(Metas::class);
+    }
+
+    public function alimentacoes()
+    {
+        return $this->hasMany(Alimentacao::class);
+    }
+
+    public function registrosAtividades()
+    {
+        return $this->hasMany(RegistroAtividade::class);
+    }
 }
+

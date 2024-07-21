@@ -34,8 +34,13 @@ class RegistroAtividade extends Model
             "distancia_percorrida" => "O campo :attribute é obrigatório!",
             "duracao_atividade" => "O campo :attribute é obrigatório!",
             "calorias_queimadas" => "O campo :attribute é obrigatório!",
-            "data_hora_atividade" => "O campo :attribute é obrigatório!",s
+            "data_hora_atividade" => "O campo :attribute é obrigatório!",
             
         ];
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
     }
 }

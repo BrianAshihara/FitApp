@@ -1,29 +1,26 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateExerciciosTable extends Migration
 {
     public function up()
     {
-        Schema::create('exercicio', function (Blueprint $table) {
+        Schema::create('exercicios', function (Blueprint $table) {
             $table->id();
             $table->string('nome_exercicio');
-            $table->string('tipo_exercicio');
-            $table->string('descricao');
+            $table->text('descricao')->nullable();
             $table->string('grupo_muscular');
             $table->string('dificuldade');
-            $table->rememberToken();
+            $table->text('instrucoes')->nullable();
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('exercicio');
+        Schema::dropIfExists('exercicios');
     }
-};
-
+}
