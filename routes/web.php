@@ -26,6 +26,10 @@ Route::get('/teste', function (){
     return view('Vsf_Brian');
 });
 
+Route::get('/historicoPeso', function (){
+    return view('historicoPeso');
+});
+
 Route::get('/home', [HomeController::class,'home']);
 
 //Chamando rota para usar o controller.
