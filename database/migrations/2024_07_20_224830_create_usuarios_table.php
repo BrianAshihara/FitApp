@@ -14,7 +14,8 @@ class CreateUsuariosTable extends Migration
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('senha');
-            $table->datetime('data_cadastro')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('data_cadastro')->default(DB::raw('CURRENT_DATETIME'));
+            //$table->datetime('data_cadastro')->default(DB::raw('created_at'));
             $table->text('info_perfil')->nullable();
             $table->timestamps();
         });

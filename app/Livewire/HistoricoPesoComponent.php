@@ -4,7 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\HistoricoPeso;
+use App\Models\User;
+use App\Models\Usuario;
+use App\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HistoricoPesoComponent extends Component
 {
@@ -15,9 +19,12 @@ class HistoricoPesoComponent extends Component
 
     public function render()
     {
+
         $hist_peso = HistoricoPeso::all();
         return view('livewire.historico-peso-component', compact('hist_peso'));
     }
+
+    
 
     public function store(){
         $this->validate([
@@ -87,7 +94,7 @@ class HistoricoPesoComponent extends Component
         $this->id_usuario = '';
         $this->peso = '';
         $this->data_hora_registro = '';
-        $this->id_hist_peso = '';
+      //  $this->id_hist_peso = '';
         $this->updateMode = false;
     }
 }

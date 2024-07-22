@@ -16,6 +16,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Usuario</th>
                 <th>Peso</th>
                 <th>Data Cadastro</th>
             </tr>
@@ -23,6 +24,8 @@
         <tbody>
             @foreach($hist_peso as $historico_peso)
                 <tr>
+
+                    <td>{{ $usuario->id_usuario }}</td>
                     <td>{{ $historico_peso->peso }}</td>
                     <td>{{ $historico_peso->data_hora_registro }}</td>
                     <td>

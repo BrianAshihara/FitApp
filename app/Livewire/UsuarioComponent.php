@@ -36,7 +36,7 @@ class UsuarioComponent extends Component
             'nome' => $this->nome,
             'email' => $this->email,
             'senha' => bcrypt($this->senha),
-            'data_cadastro' => Carbon::parse($this->data_cadastro),
+            'data_cadastro' => Carbon::parse($this->data_cadastro = Carbon::now()->toDateTimeString()),
             'info_perfil' => $this->info_perfil,
         ]);
 
