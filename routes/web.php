@@ -34,6 +34,10 @@ Route::get('/registroAtividades', function (){
     return view('registroAtividades');
 });
 
+Route::get('/alimentacao', function (){
+    return view('alimentacao');
+});
+
 Route::get('/home', [HomeController::class,'home']);
 
 //Chamando rota para usar o controller.

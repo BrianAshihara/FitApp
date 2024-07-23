@@ -55,16 +55,16 @@ class RegistroAtividadesComponent extends Component
 
     public function edit($id){
 
-        $registroAtividades = RegistroAtividade::find($id);
+        $registroAtividade = RegistroAtividade::find($id);
 
-        if($registroAtividades){
-            $this->id_usuario = $registroAtividades->id_usuario;
-            $this->tipo_atividade = $registroAtividades->tipo_atividade;
-            $this->distancia_percorrida = $registroAtividades->distancia_percorrida;
-            $this->duracao_atividade = $registroAtividades->duracao_atividade;
-            $this->calorias_queimadas = $registroAtividades->calorias_queimadas;
-            $this->id_reg_atv = $registroAtividades->id;
-            $this->data_hora_atividade = $registroAtividades->data_hora_atividade ? $registroAtividades->data_hora_atividade->format('Y-m-d H:i:s') : null;
+        if($registroAtividade){
+            $this->id_usuario = $registroAtividade->id_usuario;
+            $this->tipo_atividade = $registroAtividade->tipo_atividade;
+            $this->distancia_percorrida = $registroAtividade->distancia_percorrida;
+            $this->duracao_atividade = $registroAtividade->duracao_atividade;
+            $this->calorias_queimadas = $registroAtividade->calorias_queimadas;
+            $this->id_reg_atv = $registroAtividade->id;
+            $this->data_hora_atividade = $registroAtividade->data_hora_atividade ? $registroAtividade->data_hora_atividade->format('Y-m-d H:i:s') : null;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Registro de Atividade não encontrado.');
@@ -81,15 +81,15 @@ class RegistroAtividadesComponent extends Component
             'data_hora_atividade' => 'required|date'
         ]);
 
-        $registroAtividades = RegistroAtividade::find($this->id);
+        $registroAtividade = RegistroAtividade::find($this->id);
 
-        if($registroAtividades){
-            $registroAtividades->tipo_atividade = $this->tipo_atividade;
-            $registroAtividades->distancia_percorrida = $this->distancia_percorrida;
-            $registroAtividades->duracao_atividade = $this->duracao_atividade;
-            $registroAtividades->calorias_queimadas = $this->calorias_queimadas;
-            $registroAtividades->data_hora_atividade = Carbon::parse($this->data_hora_atividade);
-            $registroAtividades->save();
+        if($registroAtividade){
+            $registroAtividade->tipo_atividade = $this->tipo_atividade;
+            $registroAtividade->distancia_percorrida = $this->distancia_percorrida;
+            $registroAtividade->duracao_atividade = $this->duracao_atividade;
+            $registroAtividade->calorias_queimadas = $this->calorias_queimadas;
+            $registroAtividade->data_hora_atividade = Carbon::parse($this->data_hora_atividade);
+            $registroAtividade->save();
 
             session()->flash('message', 'Registro de atividade atualizado com sucesso!');
             $this->resetInputFields();
@@ -100,10 +100,10 @@ class RegistroAtividadesComponent extends Component
 
     public function delete($id){
 
-        $registroAtividades = RegistroAtividade::find($id);
+        $registroAtividade = RegistroAtividade::find($id);
 
-        if($registroAtividades){
-            $registroAtividades->delete();
+        if($registroAtividade){
+            $registroAtividade->delete();
             session()->flash('message', 'Registro de atividade deletado com sucesso!');
         } else {
             session()->flash('error', 'Registro de atividade não encontrado.');

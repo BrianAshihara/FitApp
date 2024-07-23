@@ -9,9 +9,10 @@ class Alimentacao extends Model
 {
     use HasFactory;
 
+    protected $table = "alimentacoes";
 
     protected $fillable = [ 
-        "tipo_refeicao", "alimentos_consumidos", "quantidade_calorica", 
+        "id_usuario","tipo_refeicao", "alimentos_consumidos", "quantidade_calorica", 
     ];
 
     public function rules() {

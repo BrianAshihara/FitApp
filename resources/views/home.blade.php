@@ -290,7 +290,7 @@
             Alimentação
           </h6>
           <div class="link_box">
-            <a href="">
+          <a href="{{ url('/alimentacao') }}">
               <img src="{{ url ('assets/images/link.png')}}" alt="">
             </a>
             <h6>
