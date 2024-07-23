@@ -95,7 +95,7 @@
                     <a class="nav-link" href="contact.html">Nos Contrate</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/teste') }}">Login</a>
+                    <a class="nav-link" href="{{ url('/login') }}">Login</a>
                   </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">

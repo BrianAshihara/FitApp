@@ -22,7 +22,7 @@ Route::get('/usuario', function (){
     return view('dashboard');
 });
 
-Route::get('/teste', function (){
+Route::get('/login', function (){
     return view('Vsf_Brian');
 });
 
