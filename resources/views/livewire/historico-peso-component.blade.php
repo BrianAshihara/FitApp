@@ -25,7 +25,7 @@
             @foreach($hist_peso as $historico_peso)
                 <tr>
 
-                    <td>{{ $usuario->id_usuario }}</td>
+                   
                     <td>{{ $historico_peso->peso }}</td>
                     <td>{{ $historico_peso->data_hora_registro }}</td>
                     <td>

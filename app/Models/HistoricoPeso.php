@@ -11,7 +11,7 @@ class HistoricoPeso extends Model
 
 
     protected $fillable = [ 
-        "peso", "data_hora_registro", 
+        "id_usuario","peso", "data_hora_registro", 
     ];
 
     public function rules() {

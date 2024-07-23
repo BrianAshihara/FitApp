@@ -10,7 +10,7 @@ class RegistroAtividade extends Model
 
 
     protected $fillable = [ 
-        "tipo_atividade", "distancia_percorrida", "duracao_atividade", "calorias_queimadas", "data_hora_atividade",
+        "id_usuario", "tipo_atividade", "distancia_percorrida", "duracao_atividade", "calorias_queimadas", "data_hora_atividade",
     ];
 
     public function rules() {

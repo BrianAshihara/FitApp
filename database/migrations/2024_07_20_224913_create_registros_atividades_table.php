@@ -10,6 +10,7 @@ class CreateRegistrosAtividadesTable extends Migration
     {
         Schema::create('registros_atividades', function (Blueprint $table) {
             $table->id();
+         //   $table->unsignedBigInteger('id_usuario_atv');
             $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('cascade');
             $table->string('tipo_atividade');
             $table->float('distancia_percorrida');

@@ -10,6 +10,7 @@ class CreateHistoricoPesosTable extends Migration
     {
         Schema::create('historico_pesos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_usuario');
             $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('cascade');
             $table->float('peso');
             $table->timestamp('data_hora_registro');

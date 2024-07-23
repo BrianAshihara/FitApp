@@ -30,6 +30,10 @@ Route::get('/historicoPeso', function (){
     return view('historicoPeso');
 });
 
+Route::get('/registroAtividades', function (){
+    return view('registroAtividade');
+});
+
 Route::get('/home', [HomeController::class,'home']);
 
 //Chamando rota para usar o controller.
@@ -42,6 +46,15 @@ Route::prefix('usuario')->group(function () {
     Route::get('/destroy/{id}',[UsuarioController::class,'destroy'])->name('usuario.destroy');
     Route::get('/show/{id}',[UsuarioController::class,'show'])->name('usuario.show');
     Route::get('/delete/{id}',[UsuarioController::class,'delete'])->name('usuario.delete');
+});
+
+Route::prefix('registroatividades')->group(function () {
+    Route::any('/index',[RegistroAtividadeController::class,'index'])->name('registroatividades.index');
+    Route::get('/create',[RegistroAtividadeController::class,'create'])->name('registroatividades.create');
+    Route::get('/edit/{id}',[RegistroAtividadeController::class,'edit'])->name('registroatividades.edit');
+    Route::get('/destroy/{id}',[RegistroAtividadeController::class,'destroy'])->name('registroatividades.destroy');
+    Route::get('/show/{id}',[RegistroAtividadeController::class,'show'])->name('registroatividades.show');
+    Route::get('/delete/{id}',[RegistroAtividadeController::class,'delete'])->name('registroatividades.delete');
 });
 
 Route::prefix('alimentacao')->group(function () {

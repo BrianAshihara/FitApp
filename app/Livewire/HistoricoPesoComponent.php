@@ -15,10 +15,13 @@ class HistoricoPesoComponent extends Component
     public $id_usuario;
     public $peso;
     public $data_hora_registro;
+    public $id_hist_peso;
     public $updateMode = false;
 
     public function render()
     {
+
+        $historicoPesos = HistoricoPeso::where('id_usuario', $this->id_usuario)->get();
 
         $hist_peso = HistoricoPeso::all();
         return view('livewire.historico-peso-component', compact('hist_peso'));
@@ -28,8 +31,8 @@ class HistoricoPesoComponent extends Component
 
     public function store(){
         $this->validate([
-            'id_usuario' => 'required',
-            'peso' => 'required',
+            'id_usuario' => 'required|exists:usuarios,id',
+            'peso' => 'required|numeric',
             'data_hora_registro' => 'required|date'
         ]);
 
@@ -51,6 +54,7 @@ class HistoricoPesoComponent extends Component
             $this->id_usuario = $historico_peso->id_usuario;
             $this->peso = $historico_peso->peso;
             $this->data_hora_registro = $historico_peso->data_hora_registro ? $historico_peso->data_hora_registro->format('Y-m-d H:i:s') : null;
+            $this->id_hist_peso = $historico_peso->id;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Histórico de peso não encontrado.');
@@ -94,7 +98,7 @@ class HistoricoPesoComponent extends Component
         $this->id_usuario = '';
         $this->peso = '';
         $this->data_hora_registro = '';
-      //  $this->id_hist_peso = '';
+        $this->id_hist_peso = null;
         $this->updateMode = false;
     }
 }
