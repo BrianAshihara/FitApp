@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 class RegistroAtividade extends Model
 {
+
+    protected $table = "registros_atividades";
     use HasFactory;
 
 

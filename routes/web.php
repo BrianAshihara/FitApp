@@ -31,7 +31,7 @@ Route::get('/historicoPeso', function (){
 });
 
 Route::get('/registroAtividades', function (){
-    return view('registroAtividade');
+    return view('registroAtividades');
 });
 
 Route::get('/home', [HomeController::class,'home']);

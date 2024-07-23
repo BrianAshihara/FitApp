@@ -101,11 +101,14 @@
         </div>
     </header>
     <!-- end header section -->
-    <!-- slider section -->
+    <!-- slider section   -->
     <section class=" slider_section position-relative">
         
       <div class="container">
-        <livewire:registro-atividades-component/>
+
+      <livewire:registro-atividades-component/>
+      
+        
         
         </div>    
     </section>            

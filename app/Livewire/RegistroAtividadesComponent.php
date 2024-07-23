@@ -10,7 +10,7 @@ use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class RegistroAtividades extends Component
+class RegistroAtividadesComponent extends Component
 {
 
     public $id_usuario;
@@ -24,10 +24,10 @@ class RegistroAtividades extends Component
 
     public function render()
     {
-        $registroAtividades = RegistroAtividades::where('id_usuario', $this->id_usuario)->get();
-        return view('livewire.registro-atividades-component');
+        $registroAtividades = RegistroAtividade::where('id_usuario', $this->id_usuario)->get();
+        $reg_atv = RegistroAtividade::all();
 
-        $reg_atv = RegistroAtividades::all();
+        return view('livewire.registro-atividades-component', compact ('reg_atv'));
     }
 
     public function store(){
