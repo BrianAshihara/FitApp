@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistroAtividadeFormRequest;
+use App\Models\RegistroAtividade;
+use App\Services\RegistroAtividadeServiceInterface;
 use Illuminate\Http\Request;
 
 class RegistroAtividadeController extends Controller

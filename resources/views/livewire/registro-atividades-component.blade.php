@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($reg_atv as $registroAtividade)
+            @foreach($reg_atv as $registroAtividades)
                 <tr>
 
                    
