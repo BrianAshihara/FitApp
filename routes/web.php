@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/registroSono', function (){
+    return view('registroSono');
+});
+
 Route::get('/metas', function (){
     return view('metas');
 });
