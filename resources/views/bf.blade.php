@@ -106,7 +106,7 @@
         
       <div class="container">
 
-      <livewire:alimentacao-component/>
+      <livewire:b-f-component />
       
         
         

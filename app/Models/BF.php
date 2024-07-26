@@ -11,7 +11,7 @@ class BF extends Model
 
 
     protected $fillable = [ 
-        "quantidade_gordura", "data_medicao", 
+        "id_usuario", "quantidade_gordura", "data_medicao", 
     ];
 
     public function rules() {

@@ -31,6 +31,8 @@
                     <td>{{ $alimentacao->quantidade_calorica }}</td>
                     <td>
                         <button wire:click="edit({{ $alimentacao->id }})" class="btn btn-primary">Editar</button>
+                        <button wire:click="delete({{ $alimentacao->id }})" class="btn btn-danger">Deletar</button>
+
                     </td>
                 </tr>
             @endforeach

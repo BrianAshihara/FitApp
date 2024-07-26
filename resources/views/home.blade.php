@@ -315,14 +315,14 @@
         <div class="box">
           <img src="{{ url ('assets/images/s-6.jpg')}}" alt="">
           <h6 class="visible_heading">
-            BF
+            Gordura Corporal (BF)
           </h6>
           <div class="link_box">
-            <a href="">
-              <img src="{{ url ('assets/images/link.png')}}" alt="">
+          <a href="{{ url('/bf') }}">
+          <img src="{{ url ('assets/images/link.png')}}" alt="">
             </a>
             <h6>
-              Calcule seu índice de massa corporal(BF)
+              Calcule seu índice de gordura corporal (BF)
             </h6>
           </div>
         </div>

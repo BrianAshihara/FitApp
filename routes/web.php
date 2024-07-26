@@ -38,6 +38,10 @@ Route::get('/alimentacao', function (){
     return view('alimentacao');
 });
 
+Route::get('/bf', function (){
+    return view('bf');
+});
+
 Route::get('/home', [HomeController::class,'home']);
 
 //Chamando rota para usar o controller.
