@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BF extends Model
 {
+
+    protected $table = 'bfs';
+
     use HasFactory;
 
 
