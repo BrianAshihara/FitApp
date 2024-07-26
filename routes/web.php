@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/metas', function (){
+    return view('metas');
+});
+
 Route::get('/usuario', function (){
     return view('dashboard');
 });
