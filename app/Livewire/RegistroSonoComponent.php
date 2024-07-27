@@ -69,7 +69,7 @@ class RegistroSonoComponent extends Component
         $this->registroSono_id = $id;
         $this->tempo_sono = $record->tempo_sono;
         $this->qualidade_sono = $record->qualidade_sono;
-        $this->data_registro = $record->data_registro->format('Y-m-d');
+        $this->data_registro = $record->data_registro;
 
         $this->updateMode = true;
     }

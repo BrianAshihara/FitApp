@@ -19,6 +19,7 @@ class BFComponent extends Component
     public $data_medicao;
     public $id_bf;
     public $bfs;
+    public $formattedDate;
     public $updateMode = false;
 
     protected $rules = [
@@ -52,7 +53,7 @@ class BFComponent extends Component
         BF::create([
             'id_usuario' => $userId,
             'quantidade_gordura' => $this->quantidade_gordura,
-            'data_medicao' => $this->data_medicao,
+            'data_medicao' => $data_medicao = Carbon::parse($this->data_medicao)->format('Y-m-d H:i'),
         ]);
 
         session()->flash('message', 'Medição de gordura criada com sucesso!');
@@ -67,8 +68,8 @@ class BFComponent extends Component
         if($bf){
             $this->id_bf = $id;
             $this->quantidade_gordura = $bf->quantidade_gordura;
-            //$this->data_medicao = $bf->data_medicao ? $bf->data_medicao->format('Y-m-d-s') : null;
-            $this->data_medicao = $bf->data_medicao ? Carbon::createFromFormat('Y-m-d', $this->reminder)->toDateString() : null;
+           
+            $formattedDate = Carbon::parse($bf->data_medicao)->format('d/m/Y');
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Medição de gordura não encontrada.');
