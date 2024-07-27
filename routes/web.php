@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +19,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+
+Route::get('/registroSono', function (){
+    return view('registroSono');
+});
+
 Route::get('/metas', function (){
     return view('metas');
 });
 
 Route::get('/usuario', function (){
     return view('dashboard');
-});
-
-Route::get('/login', function (){
-    return view('Vsf_Brian');
 });
 
 Route::get('/historicoPeso', function (){
@@ -44,6 +51,12 @@ Route::get('/alimentacao', function (){
 
 Route::get('/bf', function (){
     return view('bf');
+});
+
+});
+
+Route::get('/cadastro', function (){
+    return view('Vsf_Brian');
 });
 
 Route::get('/home', [HomeController::class,'home']);

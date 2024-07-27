@@ -10,7 +10,7 @@ class Metas extends Model
 
 
     protected $fillable = [ 
-        "id_usuario","tipo_meta", "valor_meta", "prazo_meta", 
+        "tipo_meta", "valor_meta", "prazo_meta", 
     ];
 
     public function rules() {

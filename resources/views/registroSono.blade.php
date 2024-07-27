@@ -95,15 +95,8 @@
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="">Login</a>
-                    </li> 
-                    <li class="nav-item">
-                      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="nav-link" style="border: none; background: none; padding: 0.65rem 1rem; color: inherit; text-decoration: none;">Logout</button>
-                      </form>
-                    </li>             
-                  </li>
-                </ul>            
+                    </li>
+                </ul>
             </div>
         </div>
     </header>
@@ -112,7 +105,7 @@
     <section class=" slider_section position-relative">
         
       <div class="container">
-        <livewire:usuario-component />
+        <livewire:registro-sono-component />
         
         </div>    
     </section>            

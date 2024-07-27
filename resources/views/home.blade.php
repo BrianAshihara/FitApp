@@ -95,7 +95,7 @@
                     <a class="nav-link" href="contact.html">Nos Contrate</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                    <a class="nav-link" href="{{ url('/cadastro') }}">Login</a>
                   </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
@@ -323,6 +323,20 @@
             </a>
             <h6>
               Calcule seu índice de gordura corporal (BF)
+            </h6>
+          </div>
+        </div>
+        <div class="box">
+          <img src="{{ url ('assets/images/registro_sono.jpg')}}" alt="">
+          <h6 class="visible_heading">
+            Registro de Sono
+          </h6>
+          <div class="link_box">
+          <a href="{{ url('/registroSono') }}">
+          <img src="{{ url ('assets/images/link.png')}}" alt="">
+            </a>
+            <h6>
+              Insira o seu registro de sono
             </h6>
           </div>
         </div>

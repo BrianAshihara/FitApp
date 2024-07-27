@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Usuario;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioComponent extends Component
 {
@@ -35,7 +36,7 @@ class UsuarioComponent extends Component
         Usuario::create([
             'nome' => $this->nome,
             'email' => $this->email,
-            'senha' => bcrypt($this->senha),
+            'senha' => Hash::make($this->senha),
             'data_cadastro' => Carbon::parse($this->data_cadastro = Carbon::now()->toDateTimeString()),
             'info_perfil' => $this->info_perfil,
         ]);
@@ -77,7 +78,7 @@ class UsuarioComponent extends Component
             $usuario->nome = $this->nome;
             $usuario->email = $this->email;
             if (!empty($this->senha)) {
-                $usuario->senha = bcrypt($this->senha);
+                $usuario->senha = Hash::make($this->senha);
             }
             // Converter a string da data para um objeto Carbon
             $usuario->data_cadastro = Carbon::createFromFormat('Y-m-d', $this->data_cadastro);
