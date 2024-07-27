@@ -4,19 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
     use HasFactory;
+
+    protected $table = 'usuarios';
+
+    protected $fillable = [
+        'nome', 'email', 'senha', 'data_cadastro', 'info_perfil'
+    ];
+
+    protected $hidden = [
+        'senha',
+    ];
 
     protected $casts = [
         'data_cadastro' => 'datetime',
     ];
-
-    protected $fillable = [ 
-        "nome", "email", "senha", "data_cadastro", "info_perfil"
-    ];
-
+    
     public function rules() {
         return [
             "nome"=> "required",

@@ -59,7 +59,7 @@ class RegistroSonoComponent extends Component
         session()->flash('message', 'Registro de sono criado com sucesso.');
 
         $this->resetInputFields();
-        $this->emit('registroSonoStore'); // Evento para atualização do front-end
+        $this->dispatch('registroSonoStore'); // Emite um evento para o navegador
     }
 
     public function edit($id)

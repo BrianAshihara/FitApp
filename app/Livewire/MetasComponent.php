@@ -50,7 +50,7 @@ class MetasComponent extends Component
         session()->flash('message', 'Meta criada com sucesso.');
 
         $this->resetInputFields();
-        $this->emit('metaStore'); // Evento para atualização do front-end
+        $this->dispatch('metaStore'); // Evento para atualização do front-end
     }
 
     public function edit($id)

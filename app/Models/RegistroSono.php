@@ -9,9 +9,10 @@ class RegistroSono extends Model
 {
     use HasFactory;
 
+    protected $table = 'registros_sono';
 
     protected $fillable = [ 
-        "tempo_sono", "qualidade_sono", "data_registro",
+        "id_usuario", "tempo_sono", "qualidade_sono", "data_registro",
     ];
 
     public function rules() {
