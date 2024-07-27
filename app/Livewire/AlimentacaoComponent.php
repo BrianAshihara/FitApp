@@ -106,6 +106,5 @@ class AlimentacaoComponent extends Component
         $this->tipo_refeicao = '';
         $this->alimentos_consumidos = '';
         $this->quantidade_calorica = '';
-        $this->updateMode = false;
     }
 }

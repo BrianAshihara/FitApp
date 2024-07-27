@@ -16,13 +16,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Usuario</th>
                 <th>Quantidade de Gordura Corporal</th>
                 <th>Data da Medição</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($b_f as $bf)
+            @foreach($bfs as $bf)
                 <tr>
                     <td>{{ $bf->quantidade_gordura }}</td>
                     <td>{{ $bf->data_medicao }}</td>

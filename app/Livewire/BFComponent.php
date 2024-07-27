@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\BF;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Usuario;
 use App\Models\Post;
@@ -17,42 +18,56 @@ class BFComponent extends Component
     public $quantidade_gordura;
     public $data_medicao;
     public $id_bf;
+    public $bfs;
     public $updateMode = false;
+
+    protected $rules = [
+        'quantidade_gordura' => 'required|numeric',
+        'data_medicao' => 'required|date'
+    ];
 
     public function render()
     {
 
-        $bfs = BF::where('id_usuario', $this->id_usuario)->get();
-        $b_f = BF::all();
-        return view(('livewire.b-f-component'), compact ('b_f'));
+        if (Auth::check()) {
+            $this->bfs = BF::where('id_usuario', Auth::id())->get();
+        } else {
+            $this->bfs = collect(); // Retorna uma coleção vazia se o usuário não estiver autenticado
+        }
+        return view('livewire.b-f-component');
     }
 
     public function store(){
         $this->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
             'quantidade_gordura' => 'required|numeric',
-            'data_medicao' => 'required|date'
+            'data_medicao' => 'required|date',
         ]);
 
+        $userId = Auth::id();
+
+        if (!$userId) {
+            session()->flash('message', 'Erro: Usuário não autenticado.');
+            return;
+        }
         BF::create([
-            'id_usuario' => $this->id_usuario,
+            'id_usuario' => $userId,
             'quantidade_gordura' => $this->quantidade_gordura,
-            'data_medicao' => Carbon::parse($this->data_medicao)
+            'data_medicao' => $this->data_medicao,
         ]);
 
         session()->flash('message', 'Medição de gordura criada com sucesso!');
         $this->resetInputFields();
+        $this->dispatch('bfStore');
     }
 
     public function edit($id){
 
-        $bf = BF::find($id);
+        $bf = BF::findOrFail($id);
 
         if($bf){
-            $this->id_usuario = $bf->id_usuario;
+            $this->id_bf = $id;
             $this->quantidade_gordura = $bf->quantidade_gordura;
             $this->data_medicao = $bf->data_medicao ? $bf->data_medicao->format('Y-m-d') : null;
-            $this->id_bf = $bf->id;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Medição de gordura não encontrada.');
@@ -60,21 +75,18 @@ class BFComponent extends Component
     }
 
     public function update(){
-        $this->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
-            'quantidade_gordura' => 'required|numeric',
-            'data_medicao' => 'required|date'
-        ]);
+        $this->validate();
 
-        $bf = BF::find($id);
-        if ($id_bf) {
+        if ($this->id_bf) {
+            $bf = BF::find($this->id_bf);
+            $bf->update([
+                'quantidade_gordura' => $this->quantidade_gordura,
+                'data_medicao' => $this->data_medicao,
+            ]);
 
-            $bf->peso = $this->quantidade_gordura;
-            $bf->data_medicao = Carbon::parse($this->data_hora_registro);
-            $bf->save();
             session()->flash('message', 'Medição de gordura atualizada com sucesso!');
             $this->resetInputFields();
-        }else{
+        } else {
             session()->flash('error', 'Medição de gordura não encontrada.');
         }
     }
@@ -91,10 +103,8 @@ class BFComponent extends Component
     }
 
     private function resetInputFields(){
-        $this->id_usuario = '';
         $this->quantidade_gordura = '';
         $this->data_medicao = '';
-        $this->id_bf = null;
         $this->updateMode = false;
     }
 
