@@ -1,5 +1,10 @@
 <div>
     <form wire:submit.prevent="update">
+    <div class="form-group">
+        <label for="id_usuario">Usuario:</label>
+        <input type="text" class="form-control" id="id_usuario" wire:model="id_usuario">
+        @error('id_usuario') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
         <div class="form-group">
             <label for="tipo_meta">Tipo de meta:</label>
             <input type="text" class="form-control" id="tipo_meta" wire:model="tipo_meta">

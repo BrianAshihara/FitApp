@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MetasComponent extends Component
 {
+    public $id_usuario;
     public $metas;
     public $tipo_meta;
     public $valor_meta;
@@ -18,6 +19,7 @@ class MetasComponent extends Component
     public $updateMode = false;
 
     protected $rules = [
+        'id_usuario' => 'required|exists:usuarios,id',
         'tipo_meta' => 'required|string',
         'valor_meta' => 'required|string',
         'prazo_meta' => 'required|date',
@@ -26,6 +28,9 @@ class MetasComponent extends Component
     public function render()
     {
         $this->metas = Metas::where('id_usuario', Auth::id())->get();
+
+        $this->mts = Metas::all();
+        
         return view('livewire.metas-component');
     }
 
@@ -34,6 +39,14 @@ class MetasComponent extends Component
         $this->tipo_meta = '';
         $this->valor_meta = '';
         $this->prazo_meta = '';
+        $this->meta_id = '';
+        $this->id_usuario = '';
+        $this->metas = '';
+        $this->mts = '';
+        $this->updateMode = false;
+
+
+
     }
 
     public function store()
@@ -41,7 +54,7 @@ class MetasComponent extends Component
         $this->validate();
 
         Metas::create([
-            'id_usuario' => Auth::id(),
+            'id_usuario' => $this->id_usuario,
             'tipo_meta' => $this->tipo_meta,
             'valor_meta' => $this->valor_meta,
             'prazo_meta' => $this->prazo_meta,
@@ -50,14 +63,16 @@ class MetasComponent extends Component
         session()->flash('message', 'Meta criada com sucesso.');
 
         $this->resetInputFields();
-        $this->emit('metaStore'); // Evento para atualização do front-end
+       // $this->emit('metaStore'); // Evento para atualização do front-end
     }
 
     public function edit($id)
     {
         $record = Metas::findOrFail($id);
 
+        $this->id_usuario = $record->id_usuario;
         $this->meta_id = $id;
+        $this->id_usuario = $record->id_usuario;
         $this->tipo_meta = $record->tipo_meta;
         $this->valor_meta = $record->valor_meta;
         $this->prazo_meta = $record->prazo_meta->format('Y-m-d');
@@ -72,6 +87,7 @@ class MetasComponent extends Component
         if ($this->meta_id) {
             $record = Metas::find($this->meta_id);
             $record->update([
+                'id_usuario' => $this->id_usuario,
                 'tipo_meta' => $this->tipo_meta,
                 'valor_meta' => $this->valor_meta,
                 'prazo_meta' => $this->prazo_meta,
