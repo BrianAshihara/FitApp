@@ -15,7 +15,8 @@
         <input type="text" class="form-control" id="quantidade_calorica" wire:model="quantidade_calorica">
         @error('quantidade_calorica') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
-        <button type="submit" wire:click="update()" class="btn btn-success">Atualizar</button>
+
+        <button type="button" wire:click="update()" class="btn btn-primary">Atualizar</button>
         <button type="button" class="btn btn-secondary" wire:click="resetInputFields">Cancelar</button>
     </form>
 </div>
