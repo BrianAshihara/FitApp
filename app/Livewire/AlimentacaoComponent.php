@@ -1,43 +1,51 @@
 <?php
 
 namespace App\Livewire;
+
 use Livewire\Component;
 use App\Models\Alimentacao;
-use App\Models\User;
-use App\Models\Usuario;
-use App\Models\Post;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class AlimentacaoComponent extends Component
 {
 
-    public $id_usuario;
     public $tipo_refeicao;
     public $alimentos_consumidos;
     public $quantidade_calorica;
     public $id_alm;
     public $updateMode = false;
+    public $alimentacoes;
+
+    protected $rules = [
+        'tipo_refeicao' => 'required|string',
+        'alimentos_consumidos' => 'required|string',
+        'quantidade_calorica' => 'required|integer',
+    ];
 
     public function render()
     {
 
-        $alimentacoes = Alimentacao::where('id_usuario', $this->id_usuario)->get();
-        $alm = Alimentacao::all();
+        if (Auth::check()) {
+            $this->alimentacoes = Alimentacao::where('id_usuario', Auth::id())->get();
+        } else {
+            $this->alimentacoes = collect(); // Retorna uma coleção vazia se o usuário não estiver autenticado
+        }
 
-        return view('livewire.alimentacao-component', compact ('alm'));
+        return view('livewire.alimentacao-component');
     }
 
     public function store(){
-        $this->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
-            'tipo_refeicao' => 'required',
-            'alimentos_consumidos' => 'required',
-            'quantidade_calorica' => 'required|numeric',
-        ]);
+        $this->validate();
+
+        $userId = Auth::id();
+
+        if (!$userId) {
+            session()->flash('message', 'Erro: Usuário não autenticado.');
+            return;
+        }
 
             Alimentacao::create([
-            'id_usuario' => $this->id_usuario,
+            'id_usuario' => $userId,
             'tipo_refeicao' => $this->tipo_refeicao,
             'alimentos_consumidos' => $this->alimentos_consumidos,
             'quantidade_calorica' => $this->quantidade_calorica,
@@ -45,18 +53,18 @@ class AlimentacaoComponent extends Component
 
         session()->flash('message', 'Refeição registrada criado com sucesso!');
         $this->resetInputFields();
+        $this->dispatch('alimentacaoStore');
     }
 
     public function edit($id){
 
-        $alimentacao = Alimentacao::find($id);
+        $alimentacao = Alimentacao::findOrFail($id);
 
         if($alimentacao){
-            $this->id_usuario = $alimentacao->id_usuario;
+            $this->id_alm = $id;
             $this->tipo_refeicao = $alimentacao->tipo_refeicao;
             $this->alimentos_consumidos = $alimentacao->alimentos_consumidos;
             $this->quantidade_calorica = $alimentacao->quantidade_calorica;
-            $this->id_alm = $alimentacao->id;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Refeição não encontrada.');
@@ -64,20 +72,16 @@ class AlimentacaoComponent extends Component
     }
 
     public function update(){
-        $this->validate([
-            'id_usuario' => 'required',
-            'tipo_refeicao' => 'required',
-            'alimentos_consumidos' => 'required',
-            'quantidade_calorica' => 'required',	
-        ]);
+        $this->validate();
 
-        $alimentacao = Alimentacao::find($this->id);
 
-        if($alimentacao){
-            $alimentacao->tipo_refeicao = $this->tipo_refeicao;
-            $alimentacao->alimentos_consumidos = $this->alimentos_consumidos;
-            $alimentacao->quantidade_calorica = $this->quantidade_calorica;
-            $alimentacao->save();
+        if ($this->id_alm) {
+            $alimentacao = Alimentacao::find($this->id_alm);
+            $alimentacao->update([
+                'tipo_refeicao' => $this->tipo_refeicao,
+                'alimentos_consumidos' => $this->alimentos_consumidos,
+                'quantidade_calorica' => $this->quantidade_calorica,
+            ]);
 
             session()->flash('message', 'Refeição atualizada com sucesso!');
             $this->resetInputFields();
@@ -99,11 +103,9 @@ class AlimentacaoComponent extends Component
     }
 
     private function resetInputFields(){
-        $this->id_usuario = '';
         $this->tipo_refeicao = '';
         $this->alimentos_consumidos = '';
         $this->quantidade_calorica = '';
-        $this->id_alm = null;
         $this->updateMode = false;
     }
 }

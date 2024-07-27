@@ -11,7 +11,7 @@ class Avaliacao extends Model
 
 
     protected $fillable = [ 
-        "comentarios", "classificacao", "data_avaliacao", 
+        "id_usuario","comentarios", "classificacao", "data_avaliacao", 
     ];
 
     public function rules() {

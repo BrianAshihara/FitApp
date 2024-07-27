@@ -11,7 +11,7 @@ class Exercicio extends Model
 
 
     protected $fillable = [ 
-        "nome_exercicio", "descricao", "grupo_muscular", "dificuldade", "instrucoes",
+        "id_usuario","nome_exercicio", "descricao", "grupo_muscular", "dificuldade", "instrucoes",
     ];
 
     public function rules() {

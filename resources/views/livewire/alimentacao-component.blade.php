@@ -16,16 +16,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Usuario</th>
                 <th>Tipo de Refeição</th>
                 <th>Alimentos Consumidos</th>
                 <th>Quantidade Calórica (em kcal)</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($alm as $alimentacao)
+            @foreach($alimentacoes as $alimentacao)
                 <tr>
-                    <td>{{ $alimentacao->usuario }}</td> <!-- Supondo que você tenha um campo 'usuario' para mostrar -->
                     <td>{{ $alimentacao->tipo_refeicao }}</td>
                     <td>{{ $alimentacao->alimentos_consumidos }}</td>
                     <td>{{ $alimentacao->quantidade_calorica }}</td>

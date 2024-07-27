@@ -11,7 +11,7 @@ class Treino extends Model
 
 
     protected $fillable = [ 
-        "nome_treino", "descricao", 
+        "id_usuario","nome_treino", "descricao", 
     ];
 
     public function rules() {
