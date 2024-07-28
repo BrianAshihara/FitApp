@@ -16,7 +16,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Usuario</th>
                 <th>Tipo de Atividade</th>
                 <th>Distancia Percorrida</th>
                 <th>Duração da Atividade</th>
@@ -25,18 +24,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($reg_atv as $registroAtividade)
+            @foreach($registro_Atividades as $registroAtividades)
                 <tr>
 
                    
-                    <td>{{ $registroAtividade->tipo_atividade }}</td>
-                    <td>{{ $registroAtividade->distancia_percorrida }}</td>
-                    <td>{{ $registroAtividade->duracao_atividade }}</td>
-                    <td>{{ $registroAtividade->calorias_queimadas }}</td>
-                    <td>{{ $registroAtividade->data_hora_atividade }}</td>
+                    <td>{{ $registroAtividades->tipo_atividade }}</td>
+                    <td>{{ $registroAtividades->distancia_percorrida }}</td>
+                    <td>{{ $registroAtividades->duracao_atividade }}</td>
+                    <td>{{ $registroAtividades->calorias_queimadas }}</td>
+                    <td>{{ $registroAtividades->data_hora_atividade }}</td>
                     <td>
-                        <button wire:click="edit({{ $registroAtividade->id }})" class="btn btn-primary">Editar</button>
-                        <button wire:click="delete({{ $registroAtividade->id }})" class="btn btn-danger">Deletar</button>
+                        <button wire:click="edit({{ $registroAtividades->id }})" class="btn btn-primary">Editar</button>
+                        <button wire:click="delete({{ $registroAtividades->id }})" class="btn btn-danger">Deletar</button>
                     </td>
                 </tr>
             @endforeach

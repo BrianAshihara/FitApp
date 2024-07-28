@@ -4,16 +4,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\RegistroAtividade;
-use App\Models\User;
-use App\Models\Usuario;
-use App\Models\Post;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class RegistroAtividadesComponent extends Component
 {
 
-    public $id_usuario;
+    public $registro_Atividades;
     public $tipo_atividade;
     public $distancia_percorrida;
     public $duracao_atividade;
@@ -22,49 +18,61 @@ class RegistroAtividadesComponent extends Component
     public $id_reg_atv;
     public $updateMode = false;
 
+    protected $rules = [
+
+        'tipo_atividade' => 'required',
+        'distancia_percorrida' => 'required',
+        'duracao_atividade' => 'required',
+        'calorias_queimadas' => 'required',
+        'data_hora_atividade' => 'required|date'
+    ];
+
     public function render()
     {
-        $registroAtividades = RegistroAtividade::where('id_usuario', $this->id_usuario)->get();
-        $reg_atv = RegistroAtividade::all();
+        if (Auth::check()) {
+            $this->registro_Atividades = RegistroAtividade::where('id_usuario', Auth::id())->get();
+        } else {
+            $this->registro_Atividades = collect(); // Retorna uma coleção vazia se o usuário não estiver autenticado
+        }
 
-        return view('livewire.registro-atividades-component', compact ('reg_atv'));
+        return view('livewire.registro-atividades-component');
     }
 
     public function store(){
-        $this->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
-            'tipo_atividade' => 'required',
-            'distancia_percorrida' => 'required|numeric',
-            'duracao_atividade' => 'required|numeric',
-            'calorias_queimadas' => 'required|numeric',
-            'data_hora_atividade' => 'required|date'
-        ]);
+        $this->validate();
 
-            RegistroAtividade::create([
-            'id_usuario' => $this->id_usuario,
+        $userId = Auth::id();
+
+        if (!$userId) {
+            session()->flash('message', 'Erro: Usuário não autenticado.');
+            return;
+        }
+
+        RegistroAtividade::create([
+            'id_usuario' => $userId,
             'tipo_atividade' => $this->tipo_atividade,
             'distancia_percorrida' => $this->distancia_percorrida,
             'duracao_atividade' => $this->duracao_atividade,
             'calorias_queimadas' => $this->calorias_queimadas,
-            'data_hora_atividade' => Carbon::parse($this->data_hora_atividade)
+            'data_hora_atividade' => $this->data_hora_atividade
         ]);
 
         session()->flash('message', 'Registro de atividade criado com sucesso!');
         $this->resetInputFields();
-    }
+        $this->dispatch('registroAtividadeStore');
+        }
 
     public function edit($id){
 
         $registroAtividade = RegistroAtividade::find($id);
 
         if($registroAtividade){
-            $this->id_usuario = $registroAtividade->id_usuario;
+            $this->id_reg_atv = $id;
             $this->tipo_atividade = $registroAtividade->tipo_atividade;
             $this->distancia_percorrida = $registroAtividade->distancia_percorrida;
             $this->duracao_atividade = $registroAtividade->duracao_atividade;
             $this->calorias_queimadas = $registroAtividade->calorias_queimadas;
-            $this->id_reg_atv = $registroAtividade->id;
-            $this->data_hora_atividade = $registroAtividade->data_hora_atividade ? $registroAtividade->data_hora_atividade->format('Y-m-d H:i:s') : null;
+            $this->data_hora_atividade = $registroAtividade->data_hora_atividade;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Registro de Atividade não encontrado.');
@@ -72,52 +80,39 @@ class RegistroAtividadesComponent extends Component
     }
 
     public function update(){
-        $this->validate([
-            'id_usuario' => 'required',
-            'tipo_atividade' => 'required',
-            'distancia_percorrida' => 'required',
-            'duracao_atividade' => 'required',	
-            'calorias_queimadas' => 'required',
-            'data_hora_atividade' => 'required|date'
-        ]);
+        $this->validate();
 
-        $registroAtividade = RegistroAtividade::find($this->id);
 
-        if($registroAtividade){
-            $registroAtividade->tipo_atividade = $this->tipo_atividade;
-            $registroAtividade->distancia_percorrida = $this->distancia_percorrida;
-            $registroAtividade->duracao_atividade = $this->duracao_atividade;
-            $registroAtividade->calorias_queimadas = $this->calorias_queimadas;
-            $registroAtividade->data_hora_atividade = Carbon::parse($this->data_hora_atividade);
-            $registroAtividade->save();
+        if ($this->id_reg_atv) {
+            $registroAtividade = RegistroAtividade::find($this->id_reg_atv);
+            $registroAtividade->update([
+                'tipo_atividade' => $this->tipo_atividade,
+                'distancia_percorrida' => $this->distancia_percorrida,
+                'duracao_atividade' => $this->duracao_atividade,
+                'calorias_queimadas' => $this->calorias_queimadas,
+                'data_hora_atividade' => $this->data_hora_atividade,
+            ]);
 
-            session()->flash('message', 'Registro de atividade atualizado com sucesso!');
+            session()->flash('message', 'Registro de sono atualizado com sucesso.');
+
             $this->resetInputFields();
-        } else {
-            session()->flash('error', 'Registro de atividade não encontrado.');
+            $this->updateMode = false;
         }
     }
 
     public function delete($id){
 
-        $registroAtividade = RegistroAtividade::find($id);
-
-        if($registroAtividade){
-            $registroAtividade->delete();
-            session()->flash('message', 'Registro de atividade deletado com sucesso!');
-        } else {
-            session()->flash('error', 'Registro de atividade não encontrado.');
-        }
+        RegistroAtividade::find($id)->delete();
+        session()->flash('message', 'Registro de sono deletado com sucesso.');
     }
 
     private function resetInputFields(){
-        $this->id_usuario = '';
+
         $this->tipo_atividade = '';
         $this->distancia_percorrida = '';
         $this->duracao_atividade = '';
         $this->calorias_queimadas = '';
         $this->data_hora_atividade = '';
         $this->id_reg_atv = null;
-        $this->updateMode = false;
     }
 }
