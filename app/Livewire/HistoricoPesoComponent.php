@@ -4,57 +4,67 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\HistoricoPeso;
-use App\Models\User;
-use App\Models\Usuario;
-use App\Models\Post;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
+
 
 class HistoricoPesoComponent extends Component
 {
-    public $id_usuario;
+    public $historicoPesos;
     public $peso;
     public $data_hora_registro;
     public $id_hist_peso;
     public $updateMode = false;
 
+    protected $rules = [
+        'peso' => 'required',
+        'data_hora_registro' => 'required|date',
+    ];
+
     public function render()
     {
 
-        $historicoPesos = HistoricoPeso::where('id_usuario', $this->id_usuario)->get();
+        if (Auth::check()) {
+            $this->historicoPesos = HistoricoPeso::where('id_usuario', Auth::id())->get();
+        } else {
+            $this->historicoPesos = collect(); // Retorna uma coleção vazia se o usuário não estiver autenticado
+        }
 
-        $hist_peso = HistoricoPeso::all();
-        return view('livewire.historico-peso-component', compact('hist_peso'));
+
+        return view('livewire.historico-peso-component');
     }
 
     
 
     public function store(){
-        $this->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
-            'peso' => 'required|numeric',
-            'data_hora_registro' => 'required|date'
-        ]);
+        $this->validate();
+
+        $userId = Auth::id();
+
+        if (!$userId) {
+            session()->flash('message', 'Erro: Usuário não autenticado.');
+            return;
+        }
+
 
         HistoricoPeso::create([
-            'id_usuario' => $this->id_usuario,
+            'id_usuario' => $userId,
             'peso' => $this->peso,
-            'data_hora_registro' => Carbon::parse($this->data_hora_registro)
+            'data_hora_registro' => $this->data_hora_registro,
         ]);
 
         session()->flash('message', 'Histórico de peso criado com sucesso!');
         $this->resetInputFields();
+        $this->dispatch('historicoPesoStore');
     }
 
     public function edit($id){
 
-        $historico_peso = HistoricoPeso::find($id);
+        $historico_peso = HistoricoPeso::findOrFail($id);
 
         if($historico_peso){
-            $this->id_usuario = $historico_peso->id_usuario;
             $this->peso = $historico_peso->peso;
-            $this->data_hora_registro = $historico_peso->data_hora_registro ? $historico_peso->data_hora_registro->format('Y-m-d H:i:s') : null;
-            $this->id_hist_peso = $historico_peso->id;
+            $this->data_hora_registro = $historico_peso->data_hora_registro;
+            $this->id_hist_peso = $id;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Histórico de peso não encontrado.');
@@ -62,23 +72,19 @@ class HistoricoPesoComponent extends Component
     }
 
     public function update(){
-        $this->validate([
-            'id_usuario' => 'required',
-            'peso' => 'required',
-            'data_hora_registro' => 'required|date'
-        ]);
+        $this->validate();
 
-        $historico_peso = HistoricoPeso::find($this->id);
+        if ($this->id_hist_peso) {
+            $historico_peso = HistoricoPeso::find($this->id_hist_peso);
+            $historico_peso->update([
+                'peso' => $this->peso,
+                'data_hora_registro' => $this->data_hora_registro,
+            ]);
 
-        if($historico_peso){
-            $historico_peso->peso = $this->peso;
-            $historico_peso->data_hora_registro = Carbon::parse($this->data_hora_registro);
-            $historico_peso->save();
-
-            session()->flash('message', 'Histórico de peso atualizado com sucesso!');
+            session()->flash('message', 'Historico de peso atualizado com sucesso!');
             $this->resetInputFields();
         } else {
-            session()->flash('error', 'Histórico de peso não encontrado.');
+            session()->flash('error', 'Historico de peso não encontrado.');
         }
     }
 
@@ -95,10 +101,7 @@ class HistoricoPesoComponent extends Component
     }
 
     private function resetInputFields(){
-        $this->id_usuario = '';
         $this->peso = '';
         $this->data_hora_registro = '';
-        $this->id_hist_peso = null;
-        $this->updateMode = false;
     }
 }

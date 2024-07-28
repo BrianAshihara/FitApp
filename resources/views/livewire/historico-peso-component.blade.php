@@ -16,21 +16,19 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Usuario</th>
                 <th>Peso</th>
                 <th>Data Cadastro</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($hist_peso as $historico_peso)
+            @foreach($historicoPesos as $historicoPeso)
                 <tr>
-
-                   
-                    <td>{{ $historico_peso->peso }}</td>
-                    <td>{{ $historico_peso->data_hora_registro }}</td>
+            
+                    <td>{{ $historicoPeso->peso }}</td>
+                    <td>{{ $historicoPeso->data_hora_registro }}</td>
                     <td>
-                        <button wire:click="edit({{ $historico_peso->id }})" class="btn btn-primary">Editar</button>
-                        <button wire:click="delete({{ $historico_peso->id }})" class="btn btn-danger">Deletar</button>
+                        <button wire:click="edit({{ $historicoPeso->id }})" class="btn btn-primary">Editar</button>
+                        <button wire:click="delete({{ $historicoPeso->id }})" class="btn btn-danger">Deletar</button>
                     </td>
                 </tr>
             @endforeach

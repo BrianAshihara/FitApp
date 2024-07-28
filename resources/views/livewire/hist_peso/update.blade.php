@@ -10,7 +10,7 @@
             <input type="date" class="form-control" id="data_hora_registro" wire:model="data_hora_registro">
             @error('data_hora_registro') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        <button type="submit" class="btn btn-success">Atualizar</button>
+        <button type="button" wire:click="update()" class="btn btn-primary">Atualizar</button>
         <button type="button" class="btn btn-secondary" wire:click="resetInputFields">Cancelar</button>
     </form>
 </div>
