@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MetasComponent extends Component
 {
-    public $id_usuario;
-    public $metas;
+    public $metass;
     public $tipo_meta;
     public $valor_meta;
     public $prazo_meta;
@@ -19,17 +18,18 @@ class MetasComponent extends Component
     public $updateMode = false;
 
     protected $rules = [
-        'id_usuario' => 'required|exists:usuarios,id',
-        'tipo_meta' => 'required|string',
-        'valor_meta' => 'required|string',
-        'prazo_meta' => 'required|date',
+        'tipo_meta' => 'required',
+        'valor_meta' => 'required',
+        'prazo_meta' => 'required',
     ];
 
     public function render()
     {
-        $this->metas = Metas::where('id_usuario', Auth::id())->get();
-
-        $this->mts = Metas::all();
+        if (Auth::check()) {
+            $this->metass = Metas::where('id_usuario', Auth::id())->get();
+        } else {
+            $this->metass = collect(); // Retorna uma coleção vazia se o usuário não estiver autenticado
+        }
         
         return view('livewire.metas-component');
     }
@@ -40,10 +40,7 @@ class MetasComponent extends Component
         $this->valor_meta = '';
         $this->prazo_meta = '';
         $this->meta_id = '';
-        $this->id_usuario = '';
-        $this->metas = '';
-        $this->mts = '';
-        $this->updateMode = false;
+        $this->metass = '';
 
 
 
@@ -53,8 +50,15 @@ class MetasComponent extends Component
     {
         $this->validate();
 
+        $userId = Auth::id();
+
+        if (!$userId) {
+            session()->flash('message', 'Erro: Usuário não autenticado.');
+            return;
+        }
+
         Metas::create([
-            'id_usuario' => $this->id_usuario,
+            'id_usuario' => $userId,
             'tipo_meta' => $this->tipo_meta,
             'valor_meta' => $this->valor_meta,
             'prazo_meta' => $this->prazo_meta,
@@ -70,12 +74,10 @@ class MetasComponent extends Component
     {
         $record = Metas::findOrFail($id);
 
-        $this->id_usuario = $record->id_usuario;
         $this->meta_id = $id;
-        $this->id_usuario = $record->id_usuario;
         $this->tipo_meta = $record->tipo_meta;
         $this->valor_meta = $record->valor_meta;
-        $this->prazo_meta = $record->prazo_meta->format('Y-m-d');
+        $this->prazo_meta = $record->prazo_meta;
 
         $this->updateMode = true;
     }
@@ -87,7 +89,6 @@ class MetasComponent extends Component
         if ($this->meta_id) {
             $record = Metas::find($this->meta_id);
             $record->update([
-                'id_usuario' => $this->id_usuario,
                 'tipo_meta' => $this->tipo_meta,
                 'valor_meta' => $this->valor_meta,
                 'prazo_meta' => $this->prazo_meta,

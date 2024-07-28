@@ -16,7 +16,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID Usuário</th>
                 <th>Tipo de Meta</th>
                 <th>Valor da Meta</th>
                 <th>Prazo</th>
@@ -24,15 +23,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($metas as $meta)
+            @foreach($metass as $metas)
                 <tr>
-                    <td>{{ $meta->id_usuario }}</td>
-                    <td>{{ $meta->tipo_meta }}</td>
-                    <td>{{ $meta->valor_meta }}</td>
-                    <td>{{ $meta->prazo_meta }}</td>
+                    <td>{{ $metas->tipo_meta }}</td>
+                    <td>{{ $metas->valor_meta }}</td>
+                    <td>{{ $metas->prazo_meta }}</td>
                     <td>
-                        <button wire:click="edit({{ $meta->id }})" class="btn btn-primary">Editar</button>
-                        <button wire:click="delete({{ $meta->id }})" class="btn btn-danger">Deletar</button>
+                        <button wire:click="edit({{ $metas->id }})" class="btn btn-primary">Editar</button>
+                        <button wire:click="delete({{ $metas->id }})" class="btn btn-danger">Deletar</button>
                     </td>
                 </tr>
             @endforeach

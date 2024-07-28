@@ -15,7 +15,6 @@ class Metas extends Model
 
     public function rules() {
         return [
-            "id_usuario" => "required",
             "tipo_meta"=> "required",
             "valor_meta" => "required",
             "prazo_meta" => "required",
@@ -30,7 +29,6 @@ class Metas extends Model
 
     public function feedback() {
         return [
-            "id_usuario" => "O campo :attribute é obrigatório!",
             "tipo_meta"=> "O campo :attribute é obrigatório!",
             "valor_meta" => "O campo :attribute é obrigatório!",
             "prazo_meta" => "O campo :attribute é obrigatório!",
