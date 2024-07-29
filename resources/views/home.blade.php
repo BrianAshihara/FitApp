@@ -284,7 +284,7 @@
           </div>
         </div>
         <div class="box">
-          <img src="{{ url ('assets/images/s-4.jpg')}}" alt="">
+          <img src="{{ url ('assets/images/picanha.png')}}" alt="">
           <h6 class="visible_heading">
             Alimentação
           </h6>
@@ -336,6 +336,20 @@
             </a>
             <h6>
               Insira o seu registro de sono
+            </h6>
+          </div>
+        </div>
+        <div class="box">
+          <img src="{{ url ('assets/images/av1.png')}}" alt="">
+          <h6 class="visible_heading">
+            Avaliação
+          </h6>
+          <div class="link_box">
+          <a href="{{ url('/avaliacao') }}">
+          <img src="{{ url ('assets/images/link.png')}}" alt="">
+            </a>
+            <h6>
+              Avalie nosso serviço
             </h6>
           </div>
         </div>
