@@ -99,7 +99,7 @@
     </header>
     <!-- end header section -->
 
-    <section class="slider_section position-relative">
+    <section class="">
         <div class="container">
             <h2 class="mt-4">Login</h2>
 
