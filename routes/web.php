@@ -33,9 +33,9 @@ Route::get('/metas', function (){
     return view('metas');
 });
 
-Route::get('/usuario', function (){
-    return view('dashboard');
-});
+//Route::get('/usuario', function (){
+//    return view('dashboard');
+//});
 
 Route::get('/historicoPeso', function (){
     return view('historicoPeso');

@@ -53,7 +53,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="service.html">
                   <img src="{{ url ('assets/images/call.png')}}" alt="" />
-                  <span>Ligue : sla dps coloca algm número</span>
+                  <span>Ligue: (18) 99854-7258</span>
                 </a>
               </li>
               <li class="nav-item">

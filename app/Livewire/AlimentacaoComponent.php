@@ -51,7 +51,7 @@ class AlimentacaoComponent extends Component
             'quantidade_calorica' => $this->quantidade_calorica,
         ]);
 
-        session()->flash('message', 'Refeição registrada criado com sucesso!');
+        session()->flash('message', 'Refeição registrada com sucesso!');
         $this->resetInputFields();
         $this->dispatch('alimentacaoStore');
     }
