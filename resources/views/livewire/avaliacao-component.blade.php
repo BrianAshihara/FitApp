@@ -24,7 +24,7 @@
         <tbody>
             @foreach($avaliacoes as $avaliacao)
                 <tr>
-                    <td>{{ $avaliacao->omentarios }}</td>
+                    <td>{{ $avaliacao->comentarios }}</td>
                     <td>{{ $avaliacao->classificacao }}</td>
                     <td>{{ $avaliacao->data_avaliacao }}</td>
                     <td>

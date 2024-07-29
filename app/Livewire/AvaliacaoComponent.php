@@ -18,8 +18,8 @@ class AvaliacaoComponent extends Component
 
     protected $rules = [
     
-        'comentarios' => 'required',
-        'classificacao' => 'required,',
+        'comentarios' => 'required|string',
+        'classificacao' => 'required|integer',
         'data_avaliacao' => 'required|date',
 
     ];
