@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Avaliacao;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AvaliacaoComponent extends Component
@@ -20,7 +21,6 @@ class AvaliacaoComponent extends Component
     
         'comentarios' => 'required|string',
         'classificacao' => 'required|integer',
-        'data_avaliacao' => 'required|date',
 
     ];
 
@@ -49,7 +49,7 @@ class AvaliacaoComponent extends Component
             'id_usuario' => $userId,
             'comentarios' => $this->comentarios,
             'classificacao' => $this->classificacao,
-            'data_avaliacao' => $this->data_avaliacao,
+            'data_avaliacao' =>  Carbon::parse($this->data_cadastro = Carbon::now()->toDateTimeString()),
         ]);
 
         session()->flash('message', 'Avaliação registrada  com sucesso!');
@@ -65,7 +65,6 @@ class AvaliacaoComponent extends Component
             $this->id_avaliacao = $id;
             $this->comentarios = $avaliacao->comentarios;
             $this->classificacao = $avaliacao->classificacao;
-            $this->data_avaliacao = $avaliacao->data_avaliacao;
             $this->updateMode = true;
         } else {
             session()->flash('error', 'Avaliação não encontrada.');
@@ -81,7 +80,6 @@ class AvaliacaoComponent extends Component
             $avaliacao->update([
                 'comentarios' => $this->comentarios,
                 'classificacao' => $this->classificacao,
-                'data_avaliacao' => $this->data_avaliacao,
             ]);
 
             session()->flash('message', 'Avaliação atualizada com sucesso!');
@@ -106,6 +104,5 @@ class AvaliacaoComponent extends Component
     private function resetInputFields(){
         $this->comentarios = '';
         $this->classificacao = '';
-        $this->data_avaliacao = '';
-    }
+        }
 }

@@ -29,7 +29,6 @@ class UsuarioComponent extends Component
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios,email',
             'senha' => 'required',
-            'data_cadastro' => 'required|date',
             'info_perfil' => 'nullable'
         ]);
 
@@ -53,7 +52,6 @@ class UsuarioComponent extends Component
             $this->nome = $usuario->nome;
             $this->email = $usuario->email;
             $this->senha = ''; // Senha não deve ser carregada diretamente por segurança
-            $this->data_cadastro = $usuario->data_cadastro ? $usuario->data_cadastro->format('Y-m-d') : null; // Converte para string no formato 'Y-m-d'
             $this->info_perfil = $usuario->info_perfil;
             $this->usuario_id = $usuario->id;
             $this->updateMode = true;
@@ -68,7 +66,6 @@ class UsuarioComponent extends Component
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios,email,' . $this->usuario_id,
             'senha' => 'nullable',
-            'data_cadastro' => 'required|date',
             'info_perfil' => 'nullable'
         ]);
     
@@ -81,7 +78,6 @@ class UsuarioComponent extends Component
                 $usuario->senha = Hash::make($this->senha);
             }
             // Converter a string da data para um objeto Carbon
-            $usuario->data_cadastro = Carbon::createFromFormat('Y-m-d', $this->data_cadastro);
             $usuario->info_perfil = $this->info_perfil;
             $usuario->save();
     
@@ -109,7 +105,6 @@ class UsuarioComponent extends Component
         $this->nome = '';
         $this->email = '';
         $this->senha = '';
-        $this->data_cadastro = '';
         $this->info_perfil = '';
         $this->usuario_id = null;
         $this->updateMode = false;
