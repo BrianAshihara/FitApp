@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="service.html">
                                 <img src="{{ url('assets/images/envelope.png') }}" alt="" />
-                                <span>demo@gmail.com</span>
+                                <span>fitappcontact@gmail.com</span>
                             </a>
                         </li>
                     </ul>
