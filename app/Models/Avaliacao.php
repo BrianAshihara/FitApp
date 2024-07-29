@@ -9,6 +9,7 @@ class Avaliacao extends Model
 {
     use HasFactory;
 
+    protected $table = 'avaliacoes';
 
     protected $fillable = [ 
         "id_usuario","comentarios", "classificacao", "data_avaliacao", 
@@ -39,6 +40,6 @@ class Avaliacao extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'id_cliente_avaliou');
+        return $this->belongsTo(Usuario::class, 'id_usuario');
     }
 }
