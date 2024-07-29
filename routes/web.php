@@ -49,6 +49,10 @@ Route::get('/alimentacao', function (){
     return view('alimentacao');
 });
 
+Route::get('/treino', function (){
+    return view('treino');
+});
+
 Route::get('/bf', function (){
     return view('bf');
 });

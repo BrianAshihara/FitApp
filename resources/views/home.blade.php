@@ -248,8 +248,8 @@
             Treino
           </h6>
           <div class="link_box">
-            <a href="">
-              <img src="{{ url ('assets/images/link.png')}}" alt="">
+          <a href="{{ url('/treino') }}">
+          <img src="{{ url ('assets/images/link.png')}}" alt="">
             </a>
             <h6>
               Personalize seu treino
