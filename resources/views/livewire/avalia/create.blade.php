@@ -1,17 +1,17 @@
 <form >
     <div class="form-group">
-        <label for="comentarios">Tipo da Refeição (café da manhã, almoço, café da tarde, janta, ceia e pré ou pós treino):</label>
+        <label for="comentarios">Comentários:</label>
         <input type="text" class="form-control" id="comentarios" wire:model="comentarios">
         @error('comentarios') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
     <div class="form-group">
-        <label for="classificacao">Alimentos Consumidos:</label>
+        <label for="classificacao">Classificação (0 a 5):</label>
         <input type="text" class="form-control" id="classificacao" wire:model="classificacao">
         @error('classificacao') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
     <div class="form-group">
-        <label for="data_avaliacao">Quantidade Calórica da Refeição (em kcal):</label>
-        <input type="text" class="form-control" id="data_avaliacao" wire:model="data_avaliacao">
+        <label for="data_avaliacao">Data Avaliacao:</label>
+        <input type="date" class="form-control" id="data_avaliacao" wire:model="data_avaliacao">
         @error('data_avaliacao') <span class="text-danger">{{ $message }}</span> @enderror
     </div>
     <button type="button" wire:click="store()" class="btn btn-primary">Salvar</button>

@@ -40,6 +40,9 @@ Route::get('/metas', function (){
 Route::get('/historicoPeso', function (){
     return view('historicoPeso');
 });
+Route::get('/avaliacao ', function (){
+    return view('avaliacao');
+});
 
 Route::get('/registroAtividades', function (){
     return view('registroAtividades');

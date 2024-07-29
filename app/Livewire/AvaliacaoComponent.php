@@ -20,7 +20,7 @@ class AvaliacaoComponent extends Component
     
         'comentarios' => 'required',
         'classificacao' => 'required,',
-        'data_avaliacao' => 'required',
+        'data_avaliacao' => 'required|date',
 
     ];
 
