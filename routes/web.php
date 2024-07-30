@@ -60,6 +60,10 @@ Route::get('/bf', function (){
     return view('bf');
 });
 
+Route::get('/exercicio', function (){
+    return view('exercicio');
+});
+
 });
 
 Route::get('/cadastro', function (){

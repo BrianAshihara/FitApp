@@ -28,7 +28,7 @@
                     <td>
                         <button wire:click="edit({{ $treino->id }})" class="btn btn-primary">Editar</button>
                         <button wire:click="delete({{ $treino->id }})" class="btn btn-danger">Deletar</button>
-                        <button type="submit" class="nav-link" style="border: none; background: none; padding: 0.65rem 1rem; color: inherit; text-decoration: none;">Registrar Exercicios</button>
+                        <button type="submit" href="{{ url('/exercicio') }}" class="nav-link" style="border: none; background: none; padding: 0.65rem 1rem; color: inherit; text-decoration: none;">Registrar Exercício</button>
 
                     </td>
                 </tr>

@@ -11,6 +11,7 @@ class CreateExerciciosTable extends Migration
         Schema::create('exercicios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_treino')->constrained('treinos')->onDelete('cascade');
+            $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('cascade');
             $table->string('nome_exercicio');
             $table->text('descricao')->nullable();
             $table->string('grupo_muscular');

@@ -36,6 +36,7 @@ class HistoricoPesoComponent extends Component
     
 
     public function store(){
+        
         $this->validate();
 
         $userId = Auth::id();
