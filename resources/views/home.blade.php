@@ -353,6 +353,20 @@
             </h6>
           </div>
         </div>
+        <div class="box">
+          <img src="{{ url ('assets/images/ex.png')}}" alt="">
+          <h6 class="visible_heading">
+            Exemplo
+          </h6>
+          <div class="link_box">
+          <a href="{{ url('/exemplo') }}">
+          <img src="{{ url ('assets/images/link.png')}}" alt="">
+            </a>
+            <h6>
+              Exemplo do Livewire
+            </h6>
+          </div>
+        </div>
       </div>
     </div>
   </section>
