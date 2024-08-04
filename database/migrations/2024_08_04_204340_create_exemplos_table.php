@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -11,7 +12,7 @@ class CreateExemplosTable extends Migration
         Schema::create('exemplos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('cascade');
-            $table->float('comida_fav');
+            $table->string('comida_fav');
             $table->timestamps();
         });
     }
