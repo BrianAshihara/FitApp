@@ -67,7 +67,7 @@ Route::get('/exercicio', function (){
 });
 
 Route::get('/cadastro', function (){
-    return view('Vsf_Brian');
+    return view('login');
 });
 
 Route::get('/home', [HomeController::class,'home']);
